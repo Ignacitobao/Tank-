@@ -1,7 +1,6 @@
 package com.ignacio.tank.factory;
 
 import com.ignacio.tank.Dir;
-import com.ignacio.tank.FireStrategy;
 import com.ignacio.tank.Group;
 import com.ignacio.tank.TankFrame;
 
@@ -17,7 +16,7 @@ public abstract class BaseTank {
     public abstract TankFrame getTankFrame();
     public abstract Rectangle getRect();
     public abstract void die();
-    public abstract void fire(FireStrategy fireStrategy);
+    public abstract void fire();
 
 
 }

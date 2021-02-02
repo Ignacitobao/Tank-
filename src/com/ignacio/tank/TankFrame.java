@@ -190,7 +190,7 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
                     System.out.println((FireModeNo == 1));*/
                     /*if("strong".equals(FireModeName))*/
                        // MyTank.fire(StrongFireStrategy.getInstance());
-                        MyTank.fire(StrongFireStrategy.getInstance());
+                        MyTank.fire();
                     /*switch(FireModeName){
                         case "strong":
                             MyTank.fire(StrongFireStrategy.getInstance());

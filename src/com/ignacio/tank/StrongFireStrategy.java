@@ -4,14 +4,14 @@ import com.ignacio.tank.factory.BaseBullet;
 import com.ignacio.tank.factory.BaseTank;
 import com.ignacio.tank.factory.SquareBullet;
 
-public class StrongFireStrategy implements FireStrategy {
+public class StrongFireStrategy {
     public static final StrongFireStrategy STRONG_FIRE_STRATEGY = new StrongFireStrategy();
     private StrongFireStrategy(){}
     public static StrongFireStrategy getInstance(){
         return STRONG_FIRE_STRATEGY;
     }
 
-    @Override
+
     public void fire(BaseTank tank) {
         TankFrame tankFrame = TankFrame.getInstance();
         int bx =  tank.getX()+ Tank.WIDTH/2 - Bullet.WIDTH/2;
