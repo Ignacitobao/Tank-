@@ -158,7 +158,7 @@ public class SquareTank extends BaseTank { //定义一个Tank类
         //如果是bad tank则随机发射炮弹，或改变方向，概率为5%
         if(this.group == Group.BAD && randomFire.nextInt(100)>94){
 
-            this.fire(DefaultFireStrategy.getInstance());
+            this.fire();
             //随机改变方向
             randomDir();
         }
@@ -189,7 +189,7 @@ public class SquareTank extends BaseTank { //定义一个Tank类
         this.dir = Dir.values()[randomMove.nextInt(4)];
     }
 
-    public void fire(FireStrategy fireStrategy) {//将fire的模式通过一个参数传进方法中
+    public void fire() {//将fire的模式通过一个参数传进方法中
         //为了让子弹从坦克的中心处发出，需要对new出来的子弹的位置进行一下计算,相应代码都写到了策略模式的代码里
         //即FireStrategy里
         /*int bx = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
@@ -203,7 +203,9 @@ public class SquareTank extends BaseTank { //定义一个Tank类
             }
         }
         fireStrategy.fire(this);*/
-        fireStrategy.fire(this);
+        int bx = this.getX() + Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int by = this.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        new  Bullet(bx,by,this.getDir(),this.getGroup(),this.getTankFrame());
 
     }
 
