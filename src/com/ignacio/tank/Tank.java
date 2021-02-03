@@ -10,12 +10,13 @@ public class Tank{ //定义一个Tank类
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
     private boolean moving = true;
-    private TankFrame tankFrame = null;
+    //private TankFrame tankFrame = null;
     private boolean live = true;
     private Random randomFire = new Random();
     private Random randomMove = new Random();
     private Group group = Group.BAD;
     Rectangle rect = new Rectangle();
+    GameModel gameModel;
 
     //用图片的长宽定义tank的长宽
     public static final int HEIGHT = ResourceMgr.goodtankU.getHeight();
@@ -24,12 +25,12 @@ public class Tank{ //定义一个Tank类
     public Tank() {
     }
 
-    public Tank(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir,Group group,GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
         //在构造方法里直接给rect赋值，即每new一个tank出来，就给rect更新一次值
         rect.x = this.x;
@@ -90,13 +91,13 @@ public class Tank{ //定义一个Tank类
         this.group = group;
     }
 
-    public TankFrame getTankFrame() {
+    /*public TankFrame getTankFrame() {
         return tankFrame;
     }
 
     public void setTankFrame(TankFrame tankFrame) {
         this.tankFrame = tankFrame;
-    }
+    }*/
 
     public Rectangle getRect() {
         return rect;
@@ -106,11 +107,19 @@ public class Tank{ //定义一个Tank类
         this.rect = rect;
     }
 
+    public GameModel getGameModel() {
+        return gameModel;
+    }
+
+    public void setGameModel(GameModel gameModel) {
+        this.gameModel = gameModel;
+    }
+
     public void paint(Graphics g) {
         //定义一个方法
         //让Tank类自己把自己画出来
         if(!live){
-            tankFrame.tanks.remove(this);
+            gameModel.tanks.remove(this);
         }
         switch (dir){
             case UP:
@@ -205,7 +214,7 @@ public class Tank{ //定义一个Tank类
         fireStrategy.fire(this);*/
         int bx = this.getX() + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int by = this.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        new  Bullet(bx,by,this.getDir(),this.getGroup(),this.getTankFrame());
+        new  Bullet(bx,by,this.getDir(),this.getGroup(),this.getGameModel());
 
     }
 
@@ -225,7 +234,7 @@ public class Tank{ //定义一个Tank类
         //通过计算使爆炸的位置更准确
         int dx = this.x - Tank.WIDTH/2 + Bullet.WIDTH/2;
         int dy = this.y - Tank.HEIGHT/2 + Bullet.HEIGHT/2;
-        tankFrame.explodes.add(new Explode(dx,dy,tankFrame));
+        gameModel.explodes.add(new Explode(dx,dy,gameModel));
     }
 
 

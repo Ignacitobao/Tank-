@@ -12,13 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class TankFrame extends Frame {//继承frame类用来重写frame类的方法（setxxx等）
 
-    Tank MyTank = new Tank(200,500,Dir.UP,Group.GOOD,this);
-    List<Bullet> bullets = new ArrayList<>();
-    Bullet bullet = new Bullet(300,300,Dir.DOWN,Group.BAD,this);
-    public List<Tank> tanks = new ArrayList<>();
-    public List<Explode> explodes = new ArrayList<>();
-    Explode explode = new Explode(500,300,this);
-
+    GameModel gm = new GameModel();
 
     public static final int GAME_WIDTH = 1080;
     public static final int GAME_HEIGHT = 720;
@@ -49,13 +43,13 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
         return TankFrameHolder.TANK_FRAME;
     }
 
-    public List<Bullet> getBullets() {
+    /*public List<Bullet> getBullets() {
         return bullets;
     }
 
     public void setBullets(List<Bullet> bullets) {
         this.bullets = bullets;
-    }
+    }*/
 
     public static int getGameWidth() {
         return GAME_WIDTH;
@@ -84,32 +78,9 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
 
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.YELLOW);
-        g.drawString("子弹的数量:"+ bullets.size(),10,40);
-        g.drawString("敌人的数量:"+ tanks.size(),10,60);
-        g.drawString("爆炸的数量:"+ explodes.size(),10,60);
-        g.setColor(c);
+        gm.paint(g);
 
-        MyTank.paint(g);
 
-        for(int i = 0;i < bullets.size();i++){
-            bullets.get(i).paint(g);
-        }
-
-        for(int i = 0;i < tanks.size();i++){
-            tanks.get(i).paint(g);
-        }
-
-        for(int i =0;i< explodes.size();i++){
-            explodes.get(i).paint(g);
-        }
-
-        //碰撞判定
-        for(int i = 0;i < bullets.size();i++){
-            for(int j = 0;j < tanks.size();j++)
-            bullets.get(i).collideWithTank(tanks.get(j));
-        }
 
 
 
@@ -126,16 +97,25 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
 
         //控制坦克的方向
         private void setMainTankDir(){
+            Tank MyTank = gm.getMyTank();
             if(!BL && !BU && !BR && !BD){
                 MyTank.setMoving(false);
             }else{
                 MyTank.setMoving(true);
             }
 
-            if(BL) MyTank.setDir(Dir.LEFT);
-            if(BU) MyTank.setDir(Dir.UP);
-            if(BR) MyTank.setDir(Dir.RIGHT);
-            if(BD) MyTank.setDir(Dir.DOWN);
+            if(BL) {
+                MyTank.setDir(Dir.LEFT);
+            }
+            if(BU) {
+                MyTank.setDir(Dir.UP);
+            }
+            if(BR) {
+                MyTank.setDir(Dir.RIGHT);
+            }
+            if(BD) {
+                MyTank.setDir(Dir.DOWN);
+            }
 
         }
 
@@ -188,7 +168,7 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
                     System.out.println((FireModeNo == 1));*/
                     /*if("strong".equals(FireModeName))*/
                        // MyTank.fire(StrongFireStrategy.getInstance());
-                        MyTank.fire();
+                        gm.getMyTank().fire();
                     /*switch(FireModeName){
                         case "strong":
                             MyTank.fire(StrongFireStrategy.getInstance());

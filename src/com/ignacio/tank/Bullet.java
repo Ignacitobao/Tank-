@@ -14,6 +14,7 @@ public class Bullet{
 
     private Dir dir;
     private Group group = Group.BAD;
+    GameModel gameModel;
 
     Rectangle rect = new Rectangle();
 
@@ -24,19 +25,19 @@ public class Bullet{
     public Bullet() {
     }
 
-    public Bullet(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
+    public Bullet(int x, int y, Dir dir,Group group,GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        tankFrame.bullets.add(this);
+        gameModel.bullets.add(this);
     }
 
     public static int getSPEED() {
@@ -85,7 +86,7 @@ public class Bullet{
 
     public void paint(Graphics g){
         if(!live){
-            tankFrame.bullets.remove(this);
+            gameModel.bullets.remove(this);
         }
         switch (dir){
             case LEFT:

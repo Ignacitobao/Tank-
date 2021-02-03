@@ -11,12 +11,12 @@ public class StrongFireStrategy {
 
 
     public void fire() {
-        TankFrame tankFrame = TankFrame.getInstance();
-        int bx =  tankFrame.MyTank.getX()+ Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int by = tankFrame.MyTank.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        GameModel gameModel = null;
+        int bx =  gameModel.getMyTank().getX()+ Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int by = gameModel.getMyTank().getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         Dir[] dirs = Dir.values();
         for(Dir dir:dirs){
-            new Bullet(bx,by,dir,tankFrame.MyTank.getGroup(),tankFrame);
+            new Bullet(bx,by,dir,gameModel.getMyTank().getGroup(),gameModel);
         }
 
     }

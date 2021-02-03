@@ -8,10 +8,7 @@ public class Main {
         TankFrame tankFrame = TankFrame.getInstance();
         //初始化敌方tank
         //从配置文件读取初始化地方坦克的数量
-        int initTankCount = Integer.parseInt((String)PropertyMgr.get("initTankCount"));
-        for(int i = 0;i < initTankCount;i++){
-            tankFrame.tanks.add(new Tank(50 + i*100,50,Dir.DOWN,Group.BAD,tankFrame));
-        }
+
 
         while (true){
             Thread.sleep(50);
