@@ -20,7 +20,7 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
     public List<BaseTank> tanks = new ArrayList<>();
     public List<BaseExplode> explodes = new ArrayList<>();
     Explode explode = new Explode(500,300,this);
-    public GameFactory gf = new SquareStyleFactory();
+    public GameFactory gf = new DefaultFactory();
 
     public static final int GAME_WIDTH = 1080;
     public static final int GAME_HEIGHT = 720;

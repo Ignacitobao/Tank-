@@ -4,13 +4,13 @@ import com.ignacio.tank.*;
 
 public class SquareStyleFactory extends GameFactory {
     @Override
-    public Tank createTank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
-        return null;
+    public BaseTank createTank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+        return new SquareTank(x,y,dir,group,tankFrame);
     }
 
     @Override
     public BaseBullet createBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
-        return new SquareBullet();
+        return new SquareBullet(x,y,dir,group,tankFrame);
     }
 
     @Override

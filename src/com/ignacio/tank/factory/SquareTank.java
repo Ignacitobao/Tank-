@@ -112,7 +112,7 @@ public class SquareTank extends BaseTank { //定义一个Tank类
         if(!live){
             tankFrame.tanks.remove(this);
         }
-        switch (dir){
+        /*switch (dir){
             case UP:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodtankU : ResourceMgr.tankU, x, y,null);
                 break;
@@ -124,14 +124,18 @@ public class SquareTank extends BaseTank { //定义一个Tank类
                 break;
             case RIGHT:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodtankR:ResourceMgr.tankR, x, y,null);
-                break;
-
+                break;*/
+        Color c = g.getColor();
+        g.setColor(group == group.GOOD ?Color.WHITE.WHITE : Color.GREEN);
+        g.fillRect(x,y,40,40);
+        g.setColor(c);
+        move();
         }
 
-        move();
 
 
-    }
+
+
 
     private void move() {
         if(!moving){
