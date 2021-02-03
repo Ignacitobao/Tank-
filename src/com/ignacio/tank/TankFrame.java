@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 public class TankFrame extends Frame {//继承frame类用来重写frame类的方法（setxxx等）
 
-
     Tank MyTank = new Tank(200,500,Dir.UP,Group.GOOD,this);
     List<Bullet> bullets = new ArrayList<>();
     Bullet bullet = new Bullet(300,300,Dir.DOWN,Group.BAD,this);
