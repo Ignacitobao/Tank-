@@ -5,7 +5,7 @@ package com.ignacio.tank;
 
 import java.awt.*;
 
-public class Bullet{
+public class Bullet extends GameObject{
     private static final int SPEED = 8;
     private int x, y;
 
@@ -37,7 +37,7 @@ public class Bullet{
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        gameModel.bullets.add(this);
+        gameModel.add(this);
     }
 
     public static int getSPEED() {
@@ -84,9 +84,17 @@ public class Bullet{
         this.group = group;
     }
 
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
+    }
+
     public void paint(Graphics g){
         if(!live){
-            gameModel.bullets.remove(this);
+            gameModel.remove(this);
         }
         switch (dir){
             case LEFT:

@@ -5,7 +5,7 @@ package com.ignacio.tank;
 import java.awt.*;
 import java.util.Random;
 
-public class Tank{ //定义一个Tank类
+public class Tank extends GameObject{ //定义一个Tank类
     private int x, y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
@@ -115,11 +115,13 @@ public class Tank{ //定义一个Tank类
         this.gameModel = gameModel;
     }
 
+
+
     public void paint(Graphics g) {
         //定义一个方法
         //让Tank类自己把自己画出来
         if(!live){
-            gameModel.tanks.remove(this);
+            gameModel.remove(this);
         }
         switch (dir){
             case UP:
@@ -234,8 +236,11 @@ public class Tank{ //定义一个Tank类
         //通过计算使爆炸的位置更准确
         int dx = this.x - Tank.WIDTH/2 + Bullet.WIDTH/2;
         int dy = this.y - Tank.HEIGHT/2 + Bullet.HEIGHT/2;
-        gameModel.explodes.add(new Explode(dx,dy,gameModel));
+        gameModel.add(new Explode(dx,dy,gameModel));
     }
 
 
+    public void stop() {
+        moving = false;
+    }
 }

@@ -4,7 +4,7 @@ package com.ignacio.tank;
 import java.awt.*;
 import java.util.Random;
 
-public class Explode {
+public class Explode extends GameObject{
     private int x, y;
 
 
@@ -31,7 +31,7 @@ public class Explode {
 
         g.drawImage(ResourceMgr.explodes[step++],x,y,null);
         if(step >= ResourceMgr.explodes.length){
-            gameModel.explodes.remove(this);
+            gameModel.remove(this);
         }
     }
 }

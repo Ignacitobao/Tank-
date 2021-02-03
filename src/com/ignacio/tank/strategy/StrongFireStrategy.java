@@ -1,6 +1,10 @@
-package com.ignacio.tank;
+package com.ignacio.tank.strategy;
 
 
+import com.ignacio.tank.Bullet;
+import com.ignacio.tank.Dir;
+import com.ignacio.tank.GameModel;
+import com.ignacio.tank.Tank;
 
 public class StrongFireStrategy {
     public static final StrongFireStrategy STRONG_FIRE_STRATEGY = new StrongFireStrategy();
