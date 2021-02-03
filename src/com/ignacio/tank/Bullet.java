@@ -1,12 +1,11 @@
 package com.ignacio.tank;
 
 
-import com.ignacio.tank.factory.BaseBullet;
-import com.ignacio.tank.factory.BaseTank;
+
 
 import java.awt.*;
 
-public class Bullet extends BaseBullet {
+public class Bullet{
     private static final int SPEED = 8;
     private int x, y;
 
@@ -135,7 +134,7 @@ public class Bullet extends BaseBullet {
         }
     }
 
-    public void collideWithTank(BaseTank tank) {
+    public void collideWithTank(Tank tank) {
         if(this.group == tank.getGroup()){
             return;
         }

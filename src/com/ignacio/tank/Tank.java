@@ -1,11 +1,11 @@
 package com.ignacio.tank;
 
-import com.ignacio.tank.factory.BaseTank;
+
 
 import java.awt.*;
 import java.util.Random;
 
-public class Tank extends BaseTank { //定义一个Tank类
+public class Tank{ //定义一个Tank类
     private int x, y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
@@ -225,7 +225,7 @@ public class Tank extends BaseTank { //定义一个Tank类
         //通过计算使爆炸的位置更准确
         int dx = this.x - Tank.WIDTH/2 + Bullet.WIDTH/2;
         int dy = this.y - Tank.HEIGHT/2 + Bullet.HEIGHT/2;
-        tankFrame.explodes.add(tankFrame.gf.createExplode(dx,dy,tankFrame));
+        tankFrame.explodes.add(new Explode(dx,dy,tankFrame));
     }
 
 

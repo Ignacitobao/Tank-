@@ -1,7 +1,7 @@
 package com.ignacio.tank;
 
 
-import com.ignacio.tank.factory.*;
+
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -14,12 +14,12 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
 
 
     Tank MyTank = new Tank(200,500,Dir.UP,Group.GOOD,this);
-    List<BaseBullet> bullets = new ArrayList<>();
+    List<Bullet> bullets = new ArrayList<>();
     Bullet bullet = new Bullet(300,300,Dir.DOWN,Group.BAD,this);
-    public List<BaseTank> tanks = new ArrayList<>();
-    public List<BaseExplode> explodes = new ArrayList<>();
+    public List<Tank> tanks = new ArrayList<>();
+    public List<Explode> explodes = new ArrayList<>();
     Explode explode = new Explode(500,300,this);
-    public GameFactory gf = new DefaultFactory();
+
 
     public static final int GAME_WIDTH = 1080;
     public static final int GAME_HEIGHT = 720;
@@ -50,11 +50,11 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
         return TankFrameHolder.TANK_FRAME;
     }
 
-    public List<BaseBullet> getBullets() {
+    public List<Bullet> getBullets() {
         return bullets;
     }
 
-    public void setBullets(List<BaseBullet> bullets) {
+    public void setBullets(List<Bullet> bullets) {
         this.bullets = bullets;
     }
 

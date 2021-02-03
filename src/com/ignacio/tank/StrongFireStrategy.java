@@ -1,8 +1,6 @@
 package com.ignacio.tank;
 
-import com.ignacio.tank.factory.BaseBullet;
-import com.ignacio.tank.factory.BaseTank;
-import com.ignacio.tank.factory.SquareBullet;
+
 
 public class StrongFireStrategy {
     public static final StrongFireStrategy STRONG_FIRE_STRATEGY = new StrongFireStrategy();
@@ -12,13 +10,13 @@ public class StrongFireStrategy {
     }
 
 
-    public void fire(BaseTank tank) {
+    public void fire() {
         TankFrame tankFrame = TankFrame.getInstance();
-        int bx =  tank.getX()+ Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int by = tank.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        int bx =  tankFrame.MyTank.getX()+ Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int by = tankFrame.MyTank.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         Dir[] dirs = Dir.values();
         for(Dir dir:dirs){
-            tankFrame.gf.createBullet(bx,by,dir,tank.getGroup(),tank.getTankFrame());
+            new Bullet(bx,by,dir,tankFrame.MyTank.getGroup(),tankFrame);
         }
 
     }

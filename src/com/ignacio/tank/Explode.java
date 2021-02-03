@@ -1,11 +1,10 @@
 package com.ignacio.tank;
 
-import com.ignacio.tank.factory.BaseExplode;
 
 import java.awt.*;
 import java.util.Random;
 
-public class Explode extends BaseExplode {
+public class Explode {
     private int x, y;
 
 
@@ -27,7 +26,7 @@ public class Explode extends BaseExplode {
         this.tankFrame = tankFrame;
     }
 
-    @Override
+
     public void paint(Graphics g){
 
         g.drawImage(ResourceMgr.explodes[step++],x,y,null);

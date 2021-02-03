@@ -10,7 +10,7 @@ public class Main {
         //从配置文件读取初始化地方坦克的数量
         int initTankCount = Integer.parseInt((String)PropertyMgr.get("initTankCount"));
         for(int i = 0;i < initTankCount;i++){
-            tankFrame.tanks.add(tankFrame.gf.createTank(50 + i*100,50,Dir.DOWN,Group.BAD,tankFrame));
+            tankFrame.tanks.add(new Tank(50 + i*100,50,Dir.DOWN,Group.BAD,tankFrame));
         }
 
         while (true){
