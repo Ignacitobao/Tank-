@@ -8,25 +8,33 @@ import java.awt.*;
 
 public class BulletTankCollider implements Collider {
     @Override
-    public void collide(GameObject o1, GameObject o2) {
-        if(o1 instanceof Bullet && o2 instanceof Tank){
-            Bullet b = (Bullet)o1;
-            Tank t = (Tank)o2;
-            b.collideWithTank(t);
-        }else if(o1 instanceof Tank && o2 instanceof Bullet){
-            collide(o2,o1);
-        }else{
-            return;
+    public boolean collide(GameObject o1, GameObject o2) {
+        if (o1 instanceof Bullet && o2 instanceof Tank) {
+            Bullet b = (Bullet) o1;
+            Tank t = (Tank) o2;
+            if (b.getGroup() == t.getGroup()) {
+                return false;
+            } else if (b.getRect().intersects(t.getRect())) {
+                b.die();
+                t.die();
+                return true;
+            }
+        } else if (o1 instanceof Tank && o2 instanceof Bullet) {
+            return collide(o2, o1);
         }
+            return false;
     }
-    /*public void collideBulletTank(Bullet b,Tank t){
+}
+    /*public boolean collideBulletTank(Bullet b,Tank t){
         if (b.getGroup() == t.getGroup()){
-            return;
+            return false;
         }
 
         if(b.getRect().intersects(t.getRect())){
             b.die();
             t.die();
+            return true;
         }
+        return false;
     }*/
-}
+

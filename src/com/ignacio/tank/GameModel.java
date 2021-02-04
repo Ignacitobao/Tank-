@@ -2,6 +2,7 @@ package com.ignacio.tank;
 
 import com.ignacio.tank.cor.BulletTankCollider;
 import com.ignacio.tank.cor.Collider;
+import com.ignacio.tank.cor.ColliderChain;
 import com.ignacio.tank.cor.TankTankCollider;
 
 import java.awt.*;
@@ -14,6 +15,8 @@ public class GameModel {
     /*List<Bullet> bullets = new ArrayList<>();
     List<Tank> tanks = new ArrayList<>();
     List<Explode> explodes = new ArrayList<>();*/
+
+    ColliderChain chain = new ColliderChain();
     //游戏内对象都被抽象成 GameObject类，因此不用每个类都用一个List去存储，只需要一个List即可
     private List<GameObject> gameObjects = new ArrayList<>();
     Collider collider = new BulletTankCollider();
@@ -75,8 +78,9 @@ public class GameModel {
             for (int j = i + 1; j < gameObjects.size(); j++) {
                 GameObject o1 = gameObjects.get(i);
                 GameObject o2 = gameObjects.get(j);
-                collider.collide(o1, o2);
-                collider2.collide(o1, o2);
+                //方法1：遍历colliders链表，撞
+                //方法2：在chain中让他们自己撞
+                chain.collide(o1,o2);
             }
         }
 
