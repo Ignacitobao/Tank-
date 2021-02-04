@@ -23,10 +23,16 @@ public class GameModel {
     Collider collider2 = new TankTankCollider();
 
     public GameModel() {
+        //从配置文件中读取敌方坦克的数量并初始化
         int initTankCount = Integer.parseInt((String)PropertyMgr.get("initTankCount"));
         for(int i = 0;i < initTankCount;i++){
             this.gameObjects.add(new Tank(50 + i*100,50,Dir.DOWN,Group.BAD,this));
         }
+        //初始化墙
+        add(new Wall(150,150,200,50));
+        add(new Wall(550,150,200,50));
+        add(new Wall(300,300,50,200));
+        add(new Wall(550,300,50,200));
     }
 
     public void add(GameObject gameObject){

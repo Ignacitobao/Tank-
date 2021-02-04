@@ -3,13 +3,21 @@ package com.ignacio.tank;
 import java.awt.*;
 
 public class Wall extends GameObject{
-    int x,y;
-    GameModel gameModel;
-    public Wall(){
-        gameModel.add(this);
+    int width,height;
+    public Rectangle rectangle;
+
+    public Wall(int x,int y,int width,int height){
+       this.x = x;
+       this.y = y;
+       this.width = width;
+       this.height = height;
+       this.rectangle = new Rectangle(x,y,width,height);
     }
     @Override
     public void paint(Graphics g) {
-        g.fillRect(500,600,50,200);
+        Color c = g.getColor();
+        g.setColor(Color.GREEN);
+        g.fillRect(x,y,width,height);
+        g.setColor(c);
     }
 }

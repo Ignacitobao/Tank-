@@ -10,13 +10,12 @@ public class Bullet extends GameObject{
     private int x, y;
 
     private boolean live = true;
-    private TankFrame tankFrame = null;
 
     private Dir dir;
     private Group group = Group.BAD;
     GameModel gameModel;
 
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
 
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();

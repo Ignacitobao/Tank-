@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class Tank extends GameObject{ //定义一个Tank类
     private int x, y;
+    int oldx, oldy;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
     private boolean moving = true;
@@ -145,6 +146,10 @@ public class Tank extends GameObject{ //定义一个Tank类
     }
 
     private void move() {
+        //记录移动前的位置，给back()方法提供参数
+        oldx = x;
+        oldy = y;
+
         if(!moving){
             return;
         }
@@ -242,5 +247,11 @@ public class Tank extends GameObject{ //定义一个Tank类
 
     public void stop() {
         moving = false;
+    }
+
+    public void back(){
+        x = oldx;
+        y = oldy;
+
     }
 }
