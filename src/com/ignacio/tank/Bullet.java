@@ -13,7 +13,6 @@ public class Bullet extends GameObject{
 
     private Dir dir;
     private Group group = Group.BAD;
-    GameModel gameModel;
 
     public Rectangle rect = new Rectangle();
 
@@ -24,19 +23,19 @@ public class Bullet extends GameObject{
     public Bullet() {
     }
 
-    public Bullet(int x, int y, Dir dir,Group group,GameModel gameModel) {
+    public Bullet(int x, int y, Dir dir,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gameModel = gameModel;
+
 
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        gameModel.add(this);
+        GameModel.getInstance().add(this);
     }
 
     public static int getSPEED() {
@@ -93,7 +92,7 @@ public class Bullet extends GameObject{
 
     public void paint(Graphics g){
         if(!live){
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
         switch (dir){
             case LEFT:
@@ -142,7 +141,7 @@ public class Bullet extends GameObject{
         }
     }
 
-    public void collideWithTank(Tank tank) {
+   /* public void collideWithTank(Tank tank) {
         if(this.group == tank.getGroup()){
             return;
         }
@@ -153,7 +152,7 @@ public class Bullet extends GameObject{
             tank.die();
         }
 
-    }
+    }*/
 
     public void die(){
         this.live = false;

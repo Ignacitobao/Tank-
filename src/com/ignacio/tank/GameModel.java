@@ -11,7 +11,7 @@ import java.util.List;
 
 public class GameModel {
 
-    Tank MyTank = new Tank(200,500,Dir.UP,Group.GOOD,this);
+    Tank MyTank;
     /*List<Bullet> bullets = new ArrayList<>();
     List<Tank> tanks = new ArrayList<>();
     List<Explode> explodes = new ArrayList<>();*/
@@ -22,17 +22,27 @@ public class GameModel {
     Collider collider = new BulletTankCollider();
     Collider collider2 = new TankTankCollider();
 
-    public GameModel() {
+    private GameModel() {
+        //初始化我的Tank
+        MyTank = new Tank(200,500,Dir.UP,Group.GOOD);
         //从配置文件中读取敌方坦克的数量并初始化
         int initTankCount = Integer.parseInt((String)PropertyMgr.get("initTankCount"));
         for(int i = 0;i < initTankCount;i++){
-            this.gameObjects.add(new Tank(50 + i*100,50,Dir.DOWN,Group.BAD,this));
+            add(new Tank(50 + i*100,50,Dir.DOWN,Group.BAD));
         }
         //初始化墙
         add(new Wall(150,150,200,50));
         add(new Wall(550,150,200,50));
         add(new Wall(300,300,50,200));
         add(new Wall(550,300,50,200));
+    }
+
+    private static class GameModelHolder{
+        private static final GameModel INSTANCE = new GameModel();
+    }
+
+    public static GameModel getInstance(){
+        return GameModelHolder.INSTANCE;
     }
 
     public void add(GameObject gameObject){

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class TankFrame extends Frame {//继承frame类用来重写frame类的方法（setxxx等）
 
-    GameModel gm = new GameModel();
+    GameModel gm = GameModel.getInstance();
 
     public static final int GAME_WIDTH = 1080;
     public static final int GAME_HEIGHT = 720;

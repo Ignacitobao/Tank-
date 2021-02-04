@@ -20,7 +20,7 @@ public class StrongFireStrategy {
         int by = gameModel.getMyTank().getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         Dir[] dirs = Dir.values();
         for(Dir dir:dirs){
-            new Bullet(bx,by,dir,gameModel.getMyTank().getGroup(),gameModel);
+            new Bullet(bx,by,dir,gameModel.getMyTank().getGroup());
         }
 
     }

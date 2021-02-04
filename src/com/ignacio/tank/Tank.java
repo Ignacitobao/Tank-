@@ -17,7 +17,7 @@ public class Tank extends GameObject{ //定义一个Tank类
     private Random randomMove = new Random();
     private Group group = Group.BAD;
     Rectangle rect = new Rectangle();
-    GameModel gameModel;
+
 
     //用图片的长宽定义tank的长宽
     public static final int HEIGHT = ResourceMgr.goodtankU.getHeight();
@@ -26,12 +26,12 @@ public class Tank extends GameObject{ //定义一个Tank类
     public Tank() {
     }
 
-    public Tank(int x, int y, Dir dir,Group group,GameModel gameModel) {
+    public Tank(int x, int y, Dir dir,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gameModel = gameModel;
+
 
         //在构造方法里直接给rect赋值，即每new一个tank出来，就给rect更新一次值
         rect.x = this.x;
@@ -39,7 +39,7 @@ public class Tank extends GameObject{ //定义一个Tank类
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-
+        //GameModel.getInstance().add(this);
     }
 
 
@@ -108,13 +108,7 @@ public class Tank extends GameObject{ //定义一个Tank类
         this.rect = rect;
     }
 
-    public GameModel getGameModel() {
-        return gameModel;
-    }
 
-    public void setGameModel(GameModel gameModel) {
-        this.gameModel = gameModel;
-    }
 
 
 
@@ -122,7 +116,7 @@ public class Tank extends GameObject{ //定义一个Tank类
         //定义一个方法
         //让Tank类自己把自己画出来
         if(!live){
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
         switch (dir){
             case UP:
@@ -221,7 +215,7 @@ public class Tank extends GameObject{ //定义一个Tank类
         fireStrategy.fire(this);*/
         int bx = this.getX() + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int by = this.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        new  Bullet(bx,by,this.getDir(),this.getGroup(),this.getGameModel());
+        new  Bullet(bx,by,this.getDir(),this.getGroup());
 
     }
 
@@ -241,7 +235,7 @@ public class Tank extends GameObject{ //定义一个Tank类
         //通过计算使爆炸的位置更准确
         int dx = this.x - Tank.WIDTH/2 + Bullet.WIDTH/2;
         int dy = this.y - Tank.HEIGHT/2 + Bullet.HEIGHT/2;
-        gameModel.add(new Explode(dx,dy,gameModel));
+        new Explode(dx,dy);
     }
 
 

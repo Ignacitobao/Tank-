@@ -10,7 +10,7 @@ public class TankTankCollider implements Collider {
             Tank t1 = (Tank)o1;
             Tank t2 = (Tank)o2;
             if(t1.getRect().intersects(t2.getRect())){
-                System.out.println("tanktankcollider");
+
                 t1.back();
                 t2.back();
                 return false;
