@@ -4,8 +4,12 @@ package com.ignacio.tank;
 
 import com.ignacio.tank.decorator.RectDecorator;
 import com.ignacio.tank.decorator.TailDecorator;
+import com.ignacio.tank.observer.TankFireEvent;
+import com.ignacio.tank.observer.TankFireObserver;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Tank extends GameObject{ //定义一个Tank类
@@ -265,5 +269,17 @@ public class Tank extends GameObject{ //定义一个Tank类
         x = oldx;
         y = oldy;
 
+    }
+
+    private List<TankFireObserver> fireObservers = new ArrayList<>();
+    {
+        fireObservers.add(new TankFireObserver());
+    }
+
+    public void handleFireKey(){
+        TankFireEvent event = new TankFireEvent(this);
+        for(TankFireObserver o:fireObservers){
+            o.actionOnFire(event);
+        }
     }
 }
