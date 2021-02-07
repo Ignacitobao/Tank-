@@ -7,7 +7,6 @@ import java.awt.*;
 
 public class Bullet extends GameObject{
     private static final int SPEED = 8;
-    private int x, y;
 
     private boolean live = true;
 
@@ -114,6 +113,15 @@ public class Bullet extends GameObject{
 
     }
 
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
 
 
     private void move() {

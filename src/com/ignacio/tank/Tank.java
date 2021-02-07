@@ -2,11 +2,14 @@ package com.ignacio.tank;
 
 
 
+import com.ignacio.tank.decorator.RectDecorator;
+import com.ignacio.tank.decorator.TailDecorator;
+
 import java.awt.*;
 import java.util.Random;
 
 public class Tank extends GameObject{ //定义一个Tank类
-    private int x, y;
+
     int oldx, oldy;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
@@ -39,7 +42,7 @@ public class Tank extends GameObject{ //定义一个Tank类
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        //GameModel.getInstance().add(this);
+        GameModel.getInstance().add(this);
     }
 
 
@@ -139,6 +142,16 @@ public class Tank extends GameObject{ //定义一个Tank类
 
     }
 
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
+
     private void move() {
         //记录移动前的位置，给back()方法提供参数
         oldx = x;
@@ -216,6 +229,11 @@ public class Tank extends GameObject{ //定义一个Tank类
         int bx = this.getX() + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int by = this.getY() + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         new  Bullet(bx,by,this.getDir(),this.getGroup());
+
+        //装饰模式
+       /* GameModel.getInstance().add( new RectDecorator(
+                new TailDecorator(
+                new Bullet(bx,by,this.getDir(),this.getGroup()))));*/
 
     }
 
