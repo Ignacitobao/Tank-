@@ -35,4 +35,8 @@ public class ServerFrame extends Frame {
         ServerFrame.INSTANCE.setVisible(true);
         ServerFrame.INSTANCE.server.start();
     }
+
+    public void updateClientMsg(String Str) {
+        this.taRight.setText(taRight.getText() + System.getProperty("line.separator") + Str);
+    }
 }

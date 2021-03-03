@@ -3,6 +3,7 @@ package com.ignacio.tank.net;
 import com.ignacio.tank.Dir;
 import com.ignacio.tank.Group;
 import com.ignacio.tank.Tank;
+import com.ignacio.tank.TankFrame;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -13,7 +14,7 @@ import java.util.UUID;
  * @author ：Ignacito
  * @date ：Created on 2021/3/2 at 15:00
  */
-public class TankJoinMsg {
+public class TankJoinMsg extends Msg {
     int x,y;
     Dir dir;
     Group group;
@@ -66,6 +67,7 @@ public class TankJoinMsg {
         return moving;
     }
 
+    @Override
     public byte[] toBytes(){
         ByteArrayOutputStream baos = null;
         DataOutputStream dos = null;
@@ -105,5 +107,31 @@ public class TankJoinMsg {
             }
         }
         return bytes;
+    }
+
+    @Override
+    public String toString() {
+        return "TankJoinMsg{" +
+                "x=" + x +
+                ", y=" + y +
+                ", dir=" + dir +
+                ", group=" + group +
+                ", id=" + id +
+                ", moving=" + moving +
+                '}';
+    }
+
+    @Override
+    public void handle() {
+        if(this.id.equals(TankFrame.getInstance().getMytank().getId()) || TankFrame.getInstance().findByUUID(this.getId()) != null) {
+            return;
+        }
+
+        System.out.println(this);
+        Tank tank = new Tank(this);
+        TankFrame.getInstance().addTank(tank);
+
+        //
+        Client.getInstance().send(new TankJoinMsg(TankFrame.getInstance().getMytank()));
     }
 }

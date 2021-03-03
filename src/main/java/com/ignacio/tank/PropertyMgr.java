@@ -6,11 +6,11 @@ import java.util.Properties;
 
 public class PropertyMgr {//创建一个类用来管理配置文件
 
-    static Properties props = new Properties();
+    private static Properties props = new Properties();
 
     static {
         try {
-            props.load(PropertyMgr.class.getClassLoader().getResourceAsStream("resource/config.properties"));
+            props.load(PropertyMgr.class.getClassLoader().getResourceAsStream("config.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }

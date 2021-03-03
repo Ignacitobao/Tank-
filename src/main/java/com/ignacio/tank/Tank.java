@@ -2,6 +2,8 @@ package com.ignacio.tank;
 
 
 
+import com.ignacio.tank.net.TankJoinMsg;
+
 import java.awt.*;
 import java.util.Random;
 import java.util.UUID;
@@ -10,7 +12,7 @@ public class Tank{ //定义一个Tank类
     private int x, y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
-    private boolean moving = true;
+    private boolean moving = false;
     private TankFrame tankFrame = null;
     private boolean live = true;
     private Random randomFire = new Random();
@@ -27,6 +29,15 @@ public class Tank{ //定义一个Tank类
     public static final int WIDTH = ResourceMgr.goodtankU.getWidth();
 
     public Tank() {
+    }
+
+    public Tank(TankJoinMsg msg){
+        this.x = msg.getX();
+        this.y = msg.getY();
+        this.dir = msg.getDir();
+        this.group = msg.getGroup();
+        this.id = msg.getId();
+        this.moving = msg.isMoving();
     }
 
     public Tank(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
@@ -125,6 +136,11 @@ public class Tank{ //定义一个Tank类
         if(!live){
             tankFrame.tanks.remove(this);
         }
+
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.drawString(id.toString(),this.getX(),this.getY() - 10);
+        g.setColor(c);
         switch (dir){
             case UP:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodtankU : ResourceMgr.tankU, x, y,null);

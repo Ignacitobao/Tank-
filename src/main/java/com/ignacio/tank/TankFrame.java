@@ -8,14 +8,17 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
+
 public class TankFrame extends Frame {//继承frame类用来重写frame类的方法（setxxx等）
 
-    Tank MyTank = new Tank(200,500,Dir.UP,Group.GOOD,this);
+    Random random = new Random();
+    Tank MyTank = new Tank(random.nextInt(GAME_WIDTH), random.nextInt(GAME_HEIGHT),Dir.values()[random.nextInt(4)],Group.GOOD,this);
     List<Bullet> bullets = new ArrayList<>();
     Bullet bullet = new Bullet(300,300,Dir.DOWN,Group.BAD,this);
-    public List<Tank> tanks = new ArrayList<>();
+    // TODO: 2021/3/3 : 把list改为Map,一个UUID对应一个Tank，这样根据UUID查找tank时效率会高很多
+    public Map<UUID,Tank> tanks = new HashMap<>();
     public List<Explode> explodes = new ArrayList<>();
     Explode explode = new Explode(500,300,this);
 
@@ -41,6 +44,14 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
         });
     }
 
+    public Tank findByUUID(UUID id) {
+        return tanks.get(id);
+    }
+
+    public void addTank(Tank tank){
+        tanks.put(tank.getId(),tank);
+    }
+
     private static class TankFrameHolder{
         private static final TankFrame TANK_FRAME = new TankFrame();
     }
@@ -64,6 +75,8 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
     public static int getGameHeight() {
         return GAME_HEIGHT;
     }
+
+
 
     //使用双缓冲解决闪烁问题
     Image offScreenImage = null;
@@ -97,9 +110,12 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
             bullets.get(i).paint(g);
         }
 
-        for(int i = 0;i < tanks.size();i++){
+        tanks.values().stream().forEach((e) -> e.paint(g));
+        /*for(int i = 0;i < tanks.size();i++){
             tanks.get(i).paint(g);
-        }
+        }*/
+
+
 
         for(int i =0;i< explodes.size();i++){
             explodes.get(i).paint(g);
@@ -202,6 +218,10 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
                 setMainTankDir();
 
         }
+    }
+
+    public Tank getMytank(){
+        return this.MyTank;
     }
 }
 

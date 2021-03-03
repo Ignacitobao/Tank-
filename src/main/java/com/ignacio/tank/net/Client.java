@@ -1,8 +1,7 @@
 package com.ignacio.tank.net;
 
+import com.ignacio.tank.TankFrame;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -13,6 +12,21 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  * @date ：Created on 2021/3/2 at 17:04
  */
 public class Client {
+    private Channel channel = null;
+
+    private Client(){}
+
+
+
+    private static class ClientInstanceHolder{
+        private static final Client INSTANCE = new Client();
+    }
+
+
+    public static Client getInstance(){
+        return ClientInstanceHolder.INSTANCE;
+    }
+
     public void connect(){
         EventLoopGroup group = new NioEventLoopGroup();
         Bootstrap b = new Bootstrap();
@@ -30,6 +44,7 @@ public class Client {
                                 System.out.println("Failed to connect");
                             }
                             System.out.println("Connected to server");
+                            channel = channelFuture.channel();
                         }
                     });
                     //将异步改为同步，直到执行close()方法时才返回（程序结束）
@@ -39,27 +54,34 @@ public class Client {
         } finally {group.shutdownGracefully();
         }
     }
+    public void send(TankJoinMsg msg) {
+        channel.writeAndFlush(msg);
+    }
 }
 
 class ClientChannelInitializer extends ChannelInitializer<SocketChannel>{
 
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
-        socketChannel.pipeline().addLast(new TankJoinMsgEncoder());
-        socketChannel.pipeline().addLast(new ClientChannelHandler());
-
+        socketChannel.pipeline()
+                .addLast(new TankJoinMsgEncoder())
+                .addLast(new TankJoinMsgDecoder())
+                .addLast(new ClientChannelHandler());
     }
 }
 
-class ClientChannelHandler extends ChannelInboundHandlerAdapter {
+class ClientChannelHandler extends SimpleChannelInboundHandler<TankJoinMsg> {
+
+
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ByteBuf buf = Unpooled.copiedBuffer("hello".getBytes());
-        ctx.writeAndFlush(buf);
+    public void channelRead0(ChannelHandlerContext channelHandlerContext, TankJoinMsg tankJoinMsg) throws Exception {
+        tankJoinMsg.handle();
+
+
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        ctx.writeAndFlush(new TankJoinMsg(TankFrame.getInstance().getMytank()));
     }
 }

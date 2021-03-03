@@ -2,6 +2,7 @@ package com.ignacio.tank;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 public class ResourceMgr {
@@ -26,23 +27,23 @@ public class ResourceMgr {
         //利用反射来加载已经打在包中的图片，使其加载到内存中，方便渲染画面时直接使用
         try {
             //利用工具类中的旋转方法
-            goodtankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
+            goodtankU = ImageIO.read(new File("D:\\Java\\Exercise\\tank\\src\\GoodTank1.png"));
             goodtankD = ImageUtil.rotateImage(goodtankU,180);
             goodtankL = ImageUtil.rotateImage(goodtankU,-90);
             goodtankR = ImageUtil.rotateImage(goodtankU,90);
 
-            tankL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankL.gif"));
-            tankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankU.gif"));
-            tankR = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankR.gif"));
-            tankD = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankD.gif"));
+            tankU = ImageIO.read(new File("D:\\Java\\Exercise\\tank\\src\\tankU.gif"));
+            tankD = ImageUtil.rotateImage(tankU,180);
+            tankL = ImageUtil.rotateImage(tankU,-90);
+            tankR = ImageUtil.rotateImage(tankU,90);
 
-            bulletL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletL.gif"));
-            bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.gif"));
-            bulletR = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletR.gif"));
-            bulletD = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
+            bulletU = ImageIO.read(new File("D:\\Java\\Exercise\\tank\\src\\bulletU.gif"));
+            bulletD = ImageUtil.rotateImage(bulletU,180);
+            bulletL = ImageUtil.rotateImage(bulletU,-90);
+            bulletR = ImageUtil.rotateImage(bulletU,90);
             //加载爆炸过程的图片
             for(int i=0;i < 16;i++){
-               explodes[i] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/e"+(i+1)+".gif"));
+               explodes[i] = ImageIO.read(new File("D:\\Java\\Exercise\\tank\\src\\e" + (i+1) + ".gif"));
             }
         } catch (IOException e) {
             e.printStackTrace();
