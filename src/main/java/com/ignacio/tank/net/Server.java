@@ -30,8 +30,8 @@ public class Server {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             socketChannel.pipeline()
-                                    .addLast(new TankJoinMsgEncoder())
-                                    .addLast(new TankJoinMsgDecoder())
+                                    .addLast(new MsgEncoder())
+                                    .addLast(new MsgDecoder())
                                     .addLast(new TankChannelHandler());
                         }
                     })
@@ -49,17 +49,17 @@ public class Server {
 
 }
 
-class TankChannelHandler extends SimpleChannelInboundHandler<TankJoinMsg>{
-
-    @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, TankJoinMsg msg) throws Exception {
-        ServerFrame.INSTANCE.updateClientMsg(msg.toString());
-        //Server将接收到的参数直接转发给所有clients
-        Server.clients.writeAndFlush(msg);
-    }
+class TankChannelHandler extends ChannelInboundHandlerAdapter{
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         Server.clients.add(ctx.channel());
+    }
+
+    @Override
+    public void channelRead(ChannelHandlerContext channelHandlerContext, Object msg) throws Exception {
+        ServerFrame.INSTANCE.updateClientMsg(msg.toString());
+        //Server将接收到的参数直接转发给所有clients
+        Server.clients.writeAndFlush(msg);
     }
 }

@@ -3,6 +3,10 @@ package com.ignacio.tank;
 
 
 
+import com.ignacio.tank.net.Client;
+import com.ignacio.tank.net.TankStartMovingMsg;
+import com.ignacio.tank.net.TankStopMsg;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -14,10 +18,9 @@ import java.util.List;
 public class TankFrame extends Frame {//继承frame类用来重写frame类的方法（setxxx等）
 
     Random random = new Random();
-    Tank MyTank = new Tank(random.nextInt(GAME_WIDTH), random.nextInt(GAME_HEIGHT),Dir.values()[random.nextInt(4)],Group.GOOD,this);
+    Tank MyTank = new Tank(random.nextInt(GAME_WIDTH), random.nextInt(GAME_HEIGHT),Dir.values()[random.nextInt(4)],Group.GOOD,this,UUID.randomUUID());
     List<Bullet> bullets = new ArrayList<>();
     Bullet bullet = new Bullet(300,300,Dir.DOWN,Group.BAD,this);
-    // TODO: 2021/3/3 : 把list改为Map,一个UUID对应一个Tank，这样根据UUID查找tank时效率会高很多
     public Map<UUID,Tank> tanks = new HashMap<>();
     public List<Explode> explodes = new ArrayList<>();
     Explode explode = new Explode(500,300,this);
@@ -144,15 +147,17 @@ public class TankFrame extends Frame {//继承frame类用来重写frame类的方
         private void setMainTankDir(){
             if(!BL && !BU && !BR && !BD){
                 MyTank.setMoving(false);
+                Client.getInstance().send(new TankStopMsg(getMytank()));
             }else{
                 MyTank.setMoving(true);
-            }
 
             if(BL) MyTank.setDir(Dir.LEFT);
             if(BU) MyTank.setDir(Dir.UP);
             if(BR) MyTank.setDir(Dir.RIGHT);
             if(BD) MyTank.setDir(Dir.DOWN);
 
+            Client.getInstance().send(new TankStartMovingMsg(getMytank()));
+            }
         }
 
 

@@ -16,8 +16,6 @@ public class Client {
 
     private Client(){}
 
-
-
     private static class ClientInstanceHolder{
         private static final Client INSTANCE = new Client();
     }
@@ -54,7 +52,7 @@ public class Client {
         } finally {group.shutdownGracefully();
         }
     }
-    public void send(TankJoinMsg msg) {
+    public void send(Msg msg) {
         channel.writeAndFlush(msg);
     }
 }
@@ -64,19 +62,18 @@ class ClientChannelInitializer extends ChannelInitializer<SocketChannel>{
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         socketChannel.pipeline()
-                .addLast(new TankJoinMsgEncoder())
-                .addLast(new TankJoinMsgDecoder())
+                .addLast(new MsgEncoder())
+                .addLast(new MsgDecoder())
                 .addLast(new ClientChannelHandler());
     }
 }
 
-class ClientChannelHandler extends SimpleChannelInboundHandler<TankJoinMsg> {
-
+class ClientChannelHandler extends SimpleChannelInboundHandler<Msg> {
 
     @Override
-    public void channelRead0(ChannelHandlerContext channelHandlerContext, TankJoinMsg tankJoinMsg) throws Exception {
-        tankJoinMsg.handle();
-
+    public void channelRead0(ChannelHandlerContext channelHandlerContext, Msg msg) throws Exception {
+        System.out.println(msg.toString());
+        msg.handle();
 
     }
 

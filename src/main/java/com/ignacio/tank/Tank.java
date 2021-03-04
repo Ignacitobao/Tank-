@@ -40,12 +40,13 @@ public class Tank{ //定义一个Tank类
         this.moving = msg.isMoving();
     }
 
-    public Tank(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir,Group group,TankFrame tankFrame,UUID id) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+        this.id = UUID.randomUUID();
 
         //在构造方法里直接给rect赋值，即每new一个tank出来，就给rect更新一次值
         rect.x = this.x;
